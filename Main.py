@@ -5,9 +5,10 @@ class Evaluate:
       size_of_stack: An integer which represents the size of stack.
       stack: A List which acts as a Stack.
   """
-
-
-  def __init__(self, size):
+    
+  def _init_(self, size):
+    
+    
     """Inits Evaluate with top, size_of_stack and stack.
     Arguments:
       size_of_stack: An integer to set the size of stack.
@@ -23,11 +24,11 @@ class Evaluate:
     Returns:
       True if it is empty, else returns False.
     """
-      if len(self.stack) == 0:
+      
+ if len(self.stack) == 0:
         return True
     else:
         return False
-
 
   def pop(self):
     """
@@ -35,10 +36,10 @@ class Evaluate:
     Returns:
       The data which is popped out if the stack is not empty.
     """
-   if len(self.stack) > 0:
+    
+if len(self.stack) > 0:
         x = self.stack.pop()
         return x
-
 
   def push(self, operand):
     """
@@ -46,8 +47,9 @@ class Evaluate:
     Arguments:
       operand: The operand to be pushed.
     """
-     self.stack.append(operand)
+    
 
+self.stack.append(operand)
 
   def validate_postfix_expression(self, expression):
     """
@@ -57,7 +59,9 @@ class Evaluate:
     Returns:
       True if the expression is valid, else returns False.
     """
-     value = True
+    
+
+ value = True
     
     valid = ['+','-','*','/']
     
@@ -69,7 +73,6 @@ class Evaluate:
     
     return value
 
-
   def evaluate_postfix_expression(self, expression):
     """
     Evaluate the postfix expression
@@ -78,7 +81,8 @@ class Evaluate:
     Returns:
       The result of evaluated postfix expression.
     """
-    for char in expression:
+    
+ for char in expression:
         if char.isdigit():
             self.push(char)
         else:
