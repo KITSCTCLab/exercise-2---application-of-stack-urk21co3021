@@ -5,10 +5,10 @@ class Evaluate:
       size_of_stack: An integer which represents the size of stack.
       stack: A List which acts as a Stack.
   """
-    
-  def _init_(self, size):
-    
-    
+    # Write your code here
+
+
+  def __init__(self, size):
     """Inits Evaluate with top, size_of_stack and stack.
     Arguments:
       size_of_stack: An integer to set the size of stack.
@@ -24,11 +24,8 @@ class Evaluate:
     Returns:
       True if it is empty, else returns False.
     """
-      
- if len(self.stack) == 0:
-        return True
-    else:
-        return False
+    return self.top == -1
+
 
   def pop(self):
     """
@@ -36,10 +33,9 @@ class Evaluate:
     Returns:
       The data which is popped out if the stack is not empty.
     """
-    
-if len(self.stack) > 0:
-        x = self.stack.pop()
-        return x
+    self.top -= 1
+    return self.stack.pop()
+
 
   def push(self, operand):
     """
@@ -47,9 +43,9 @@ if len(self.stack) > 0:
     Arguments:
       operand: The operand to be pushed.
     """
-    
+    self.stack.append(operand)
+    self.top += 1
 
-self.stack.append(operand)
 
   def validate_postfix_expression(self, expression):
     """
@@ -59,19 +55,18 @@ self.stack.append(operand)
     Returns:
       True if the expression is valid, else returns False.
     """
-    
+    operators = []
+    operands = []
+    for i in expression:
+      if i.isdigit():
+        operands.append(i)
+      else:
+        operators.append(i)
 
- value = True
-    
-    valid = ['+','-','*','/']
-    
-    for char in expression:
-        if char.isdigit or char in valid:
-            continue
-        else:
-            value = False
-    
-    return value
+    status = len(operators) + len(operands) == len(expression) and len(operands)-1 == len(operators) and expression[0].isdigit() and expression[1].isdigit()
+    return status
+
+
 
   def evaluate_postfix_expression(self, expression):
     """
@@ -81,26 +76,27 @@ self.stack.append(operand)
     Returns:
       The result of evaluated postfix expression.
     """
-    
- for char in expression:
-        if char.isdigit():
-            self.push(char)
-        else:
-            b = int(self.pop())
-            a = int(self.pop())
-            
-            if char == "+":
-                result = a + b
-            elif char == "-":
-                result = a - b
-            elif char == '*':
-                result = a * b
-            elif char == '/':
-                result = a / b
-            
-            self.push(result)
-    
-    return int(self.stack[0])
+    for i in expression:
+      if i.isdigit():
+        self.push(int(i))
+      elif i in ["+","-","*","/","^"]:
+        if i == "+":
+          b, a = self.pop(),self.pop()
+          self.push(a+b)
+        elif i == "-":
+          b, a = self.pop(),self.pop()
+          self.push(a-b)
+        elif i == "*":
+          b, a = self.pop(),self.pop()
+          self.push(a*b)
+        elif i == "/":
+          b, a = self.pop(),self.pop()
+          self.push(a//b)
+        elif i == "^":
+          b, a = self.pop(),self.pop()
+          self.push(a**b)
+
+    return self.pop()
 
 
 # Do not change the following code
